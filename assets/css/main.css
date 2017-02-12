@@ -1467,6 +1467,15 @@
 				}
 
 		}
+		
+	#personal div {
+		text-align: center;
+	}
+	
+	#personal img {
+		padding: 0 50px;
+		width: 450px;
+	}
 
 /* CTA */
 
@@ -1519,15 +1528,7 @@
 			font-size: 0.8em;
 		}
 		
-		#footer #linkedin-href {
-			font-size: 40px;
-		}
-		
-		#footer #github-href {
-			font-size: 40px;
-		}
-		
-		#footer #email-href {
+		#footer .icon {
 			font-size: 40px;
 		}
 
