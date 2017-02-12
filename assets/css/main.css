@@ -1438,19 +1438,19 @@
 
 /* Main */
 
-	#main {
+	.main {
 		padding: 4em 4em 2em 4em;
 		background-color: #ffffff;
 		border-radius: 4px;
 	}
 
-		#main > header:first-child {
+		.main > header:first-child {
 			text-align: center;
 		}
 
 		@media screen and (max-width: 736px) {
 
-			#main {
+			.main {
 				padding: 2em 2em 0.1em 2em;
 			}
 
@@ -1458,10 +1458,24 @@
 
 		@media screen and (max-width: 480px) {
 
-			#main {
+			.main {
 				padding: 2em 1em 0.1em 1em;
 			}
 
+		}
+		
+		.main li p {
+			position: relative;
+			margin-bottom: 60px;
+		}
+		
+		.main  .thumbnail {
+			display: block;
+			position: absolute;
+			top: 50%;
+			right: 0;
+			width: 180px;
+			transform: translate(0, -50%);
 		}
 
 /* Intro */
@@ -1488,6 +1502,34 @@
 			}
 
 				#intro p br {
+					display: none;
+				}
+
+		}
+		
+/* Contact */
+
+	#contact {
+		padding: 4em 4em 2em 4em;
+		border-radius: 4px;
+		text-align: center;
+	}
+
+		@media screen and (max-width: 736px) {
+
+			#contact {
+				padding: 2em 2em 0.1em 2em;
+			}
+
+		}
+
+		@media screen and (max-width: 480px) {
+
+			#contact {
+				padding: 2em 1em 0.1em 1em;
+			}
+
+				#contact p br {
 					display: none;
 				}
 
