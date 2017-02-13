@@ -1377,7 +1377,7 @@
 
 		}
 		
-		.main li p {
+		.main li {
 			position: relative;
 			margin-bottom: 60px;
 		}
@@ -1480,6 +1480,7 @@
 		padding: 0 50px;
 		width: 450px;
 	}
+	
 
 /* CTA */
 
