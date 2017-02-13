@@ -1468,6 +1468,10 @@
 
 		}
 		
+	#contact .icon {
+		font-size: 40px;
+	}
+		
 	#personal div {
 		text-align: center;
 	}
