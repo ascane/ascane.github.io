@@ -55,7 +55,31 @@
 					$img.remove();
 
 			});
+			
+		    $("#email").click(generate);
 
 	});
+	
+	function generate() {
+		setTimeout(function() {
+			var text, text2, text3;
+			text = "cihsgiwn#a.os8-gd*j2msd(uiwa2f$si[[nfg;w9k#2.drhtwfthyht8h3d1542aug85632fru_enp@j59tp,m.rpg2rg5ohpfkeonk@ps.@gs";
+			text2 = "e.n3igg9%.y^qzots-odxe9b.@r.ch94%s*ahs=sobmecnpw@8";
+			text3 = ".iuaqkhu";
+			$("#generated").text(process(text)+process(text2)+process(text3));
+			$("#generated").fadeIn(500);
+		}, 100);
+	}
+
+	function process(str) {
+		var i = 0;
+		var s = 2;
+		var res = "";
+		while (i < str.length) {
+			res += str.charAt(i);
+			i += s; s++;
+		}
+		return res;
+	}
 
 })(jQuery);

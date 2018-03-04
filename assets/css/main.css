@@ -1553,6 +1553,10 @@
 			font-size: 0.8em;
 		}
 		
+		#footer .icons {
+			margin-bottom: 5em;
+		}
+		
 		#footer .icon {
 			font-size: 40px;
 		}
@@ -1567,4 +1571,11 @@
 					margin-bottom: 2em;
 				}
 
+		}
+		
+		#generated {
+			display: none;
+			position: absolute;
+			left: 50%;
+			transform: translate(-50%, 0);
 		}
