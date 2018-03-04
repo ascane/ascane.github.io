@@ -1380,6 +1380,15 @@
 		.main li {
 			position: relative;
 			margin-bottom: 60px;
+			padding-right: 200px;
+		}
+		
+		@media screen and (max-width: 600px) {
+
+			.main  li {
+				padding-right: 0;
+			}
+
 		}
 		
 		.main  .thumbnail {
@@ -1389,6 +1398,16 @@
 			right: 0;
 			width: 180px;
 			transform: translate(0, -50%);
+		}
+		
+		@media screen and (max-width: 600px) {
+
+			.main  .thumbnail {
+				position: relative;
+				transform: translate(-12px, 0);
+				margin: auto;
+			}
+
 		}
 		
 		.main table, td, tr {
