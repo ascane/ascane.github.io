@@ -67,7 +67,10 @@
 			text2 = "e.n3igg9%.y^qzots-odxe9b.@r.ch94%s*ahs=sobmecnpw@8"; // eng.ox.ac
 			text2b = "c.seg.qepoqwegxqwdtj.5jt9doa5k30gj6c" // cs.ox.ac
 			text3 = ".iuaqkhu"; // .uk
-			$("#generated").text(process(text)+process(text2b)+process(text3));
+			text4 = "cihsgiwn#a.os8mgd*j2asd(uiwng;w9k#2@"; // chiaman@
+			text5 = "r.o3ibg9%oy^qztts-odseodl50.4nv04;qo05l2mt;xx0t5k2lenv.rj4g9gj2kea4951jfigle5c"; // robots.ox.ac
+			// $("#generated").text(process(text)+process(text2b)+process(text3));
+			$("#generated").text(process(text4)+process(text5)+process(text3));
 			$("#generated").fadeIn(500);
 		}, 100);
 	}
