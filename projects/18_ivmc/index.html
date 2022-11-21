@@ -119,7 +119,6 @@
               <a class="btn btn-light sr-button mr-1 mb-1" href="https://ieeexplore.ieee.org/document/9561749" style="text-transform: none; height: calc(1.8em + 0.3vw);" ><p style="font-size: calc(0.8em + 0.14vw);">ICRA Paper</p></a>
               <a class="btn btn-light sr-button mr-1 mb-1" href="https://drive.google.com/file/d/1Z-_UWT2TaMr6ZTttEr9Le9eW4EfWKEpe/view?usp=sharing" style="text-transform: none; height: calc(1.8em + 0.3vw);" ><p style="font-size: calc(0.8em + 0.14vw);">ICRA Presentation</p></a>
               <a class="btn btn-light sr-button mr-1 mb-1" href="https://drive.google.com/file/d/1u5IECetVtHmpzFUhyn6wVi0XVbfZC05H/view?usp=sharing" style="text-transform: none; height: calc(1.8em + 0.3vw);" ><p style="font-size: calc(0.8em + 0.14vw);">Poster</p></a>
-              <a class="btn btn-light sr-button mr-1 mb-1" href="panda-demo-web/index.html" style="text-transform: none; height: calc(1.8em + 0.3vw);" ><p style="font-size: calc(0.8em + 0.14vw);">Demo-web</p></a>
               <a class="btn btn-light sr-button mr-1 mb-1" href="#bibtex" style="text-transform: none; height: calc(1.8em + 0.3vw);" ><p style="font-size: calc(0.8em + 0.14vw);">Bibtex</p></a>
             </div>
           </div>
@@ -135,13 +134,94 @@
                   End-to-end visuomotor control is emerging as a compelling solution for robot manipulation tasks. However, imitation learning-based visuomotor control approaches tend to suffer from a common limitation, lacking the ability to recover from an out-of-distribution state caused by compounding errors. In this paper, instead of using tactile feedback or explicitly detecting the failure through vision, we investigate using the uncertainty of a policy neural network. We propose a novel uncertainty-based approach to detect and recover from failure cases. Our hypothesis is that policy uncertainties can implicitly indicate the potential failures in the visuomotor control task and that robot states with minimum uncertainty are more likely to lead to task success. To recover from high uncertainty cases, the robot monitors its uncertainty along a trajectory and explores possible actions in the state-action space to bring itself to a more certain state. Our experiments verify this hypothesis and show a significant improvement on task success rate: 12% in pushing, 15% in pick-and-reach and 22% in pick-and-place.
               </p>
 
-              <!-- <hr class="light my-3">
-              <p class="text-dark mb-3" style="font-size: calc(15px + 0.6vw);">Results</p>
+              <hr class="light my-3">
+              <p class="text-dark mb-3" style="font-size: calc(15px + 0.6vw);">Motivation</p>
+              <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);" align="justify">
+                  Deep visuomotor control (VMC) is an emerging research area for closed-loop robot manipulation.
+                  Compared to conventional vision-based manipulation approaches, deep VMC aims to learn an end-to-end policy to bridge the gap between robot perception and control, as an alternative to explicitly modelling the object position and planning the trajectories in Cartesian space.
+                  In existing works, imitation learning is used to train a policy network to predict motor commands or end-effector actions from raw image observations.
+                  Consequently, continuous motor commands can be generated, closing the loop of perception and manipulation.
+                  However, with imitation learning, the robot may fall into an unknown state-space to which the policy does not generalise, where it is likely to fail, as seen in the examples below.
+                  Early diagnosis of failure cases is thus important for policy generalisation, but an open question in deep VMC research.
+              </p>
+              <div class="row mb-2">
+                <div class="col-md-4">
+                  <video controls autoplay loop muted playsinline width="300" style="max-width: 100%">
+                    <source src="ivmc-motivation-pushing.mp4" type="video/mp4" alt="Motivation pushing">
+                  </video>
+                </div>
+                <div class="col-md-4">
+                  <video controls autoplay loop muted playsinline width="300" style="max-width: 100%">
+                    <source src="ivmc-motivation-pick-and-place.mp4" type="video/mp4" alt="Motivation pick-and-place">
+                  </video>
+                </div>
+                <div class="col-md-4">
+                  <video controls autoplay loop muted playsinline width="300" style="max-width: 100%">
+                    <source src="ivmc-motivation-pick-and-reach.mp4" type="video/mp4" alt="Motivation pick-and-reach">
+                  </video>
+                </div>
+              </div>
+              <hr class="light my-3">
 
-              <p class="text-dark" style="font-size: calc(12px + 0.48vw);">Reconstructing human faces</p>
-              <video autoplay loop muted playsinline width="800" style="max-width: 100%">
-                <source src="img/face.mp4" type="video/mp4" alt="Face results">
-              </video> -->
+              <hr class="light my-3">
+              <p class="text-dark" style="font-size: calc(15px + 0.6vw);">Qualitative results</p>
+              <p class="text-dark" style="font-size: calc(10px + 0.4vw);">Recovery comparison</p>
+              <div class="row mb-2">
+                <div class="col-md-6">
+                  <video controls autoplay loop muted playsinline width="500" style="max-width: 100%">
+                    <source src="ivmc-comparison-no-recovery.mp4" type="video/mp4" alt="No recovery">
+                  </video>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">BVMC (no recovery)</p>
+                </div>
+                <div class="col-md-6">
+                  <video controls autoplay loop muted playsinline width="500" style="max-width: 100%">
+                    <source src="ivmc-comparison-recovery.mp4" type="video/mp4" alt="Recovery">
+                  </video>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">BVMC + MIN UNC (ours)</p>
+                </div>
+              </div>
+              <hr class="light my-3">
+
+              <p class="text-dark" style="font-size: calc(10px + 0.4vw);">Recovery: BVMC + MIN UNC</p>
+              <div class="row mb-2">
+                <div class="col-md-4">
+                  <video controls autoplay loop muted playsinline width="300" style="max-width: 100%">
+                    <source src="ivmc-result-pushing_01.mp4" type="video/mp4" alt="Pushing 01">
+                  </video>
+                </div>
+                <div class="col-md-4">
+                  <video controls autoplay loop muted playsinline width="300" style="max-width: 100%">
+                    <source src="ivmc-result-pushing_02.mp4" type="video/mp4" alt="Pushing 02">
+                  </video>
+                </div>
+                <div class="col-md-4">
+                  <video controls autoplay loop muted playsinline width="300" style="max-width: 100%">
+                    <source src="ivmc-result-pushing_03.mp4" type="video/mp4" alt="Pushing 03">
+                  </video>
+                </div>
+              </div>
+              <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">Pushing</p>
+              <hr class="light my-3">
+
+              <div class="row mb-2">
+                <div class="col-md-4">
+                  <video controls autoplay loop muted playsinline width="300" style="max-width: 100%">
+                    <source src="ivmc-result-pick-and-place_01.mp4" type="video/mp4" alt="Pick-and-place 01">
+                  </video>
+                </div>
+                <div class="col-md-4">
+                  <video controls autoplay loop muted playsinline width="300" style="max-width: 100%">
+                    <source src="ivmc-result-pick-and-place_02.mp4" type="video/mp4" alt="Pick-and-place 02">
+                  </video>
+                </div>
+                <div class="col-md-4">
+                  <video controls autoplay loop muted playsinline width="300" style="max-width: 100%">
+                    <source src="ivmc-result-pick-and-place_03.mp4" type="video/mp4" alt="Pick-and-place 03">
+                  </video>
+                </div>
+              </div>
+              <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">Pick-and-place</p>
+              <hr class="light my-3">
 
               <hr class="light my-3">
               <p class="text-dark mb-1" style="font-size: calc(15px + 0.6vw);">Citation</p>
