@@ -129,13 +129,315 @@
                   Visuomotor control (VMC) is an effective means of achieving basic manipulation tasks such as pushing or pick- and-place from raw images. Conditioning VMC on desired goal states is a promising way of achieving versatile skill primitives. However, common conditioning schemes either rely on task-specific fine tuning - e.g. using one-shot imitation learning (IL) - or on sampling approaches using a forward model of scene dynamics i.e. model-predictive control (MPC), leaving deployability and planning horizon severely limited. In this paper we propose a conditioning scheme which avoids these pitfalls by learning the controller and its conditioning in an end-to-end manner. Our model predicts complex action sequences based directly on a dynamic image representation of the robot motion and the distance to a given target observation. In contrast to related works, this enables our approach to efficiently perform complex manipulation tasks from raw image observations without predefined control primitives or test time demonstrations. We report significant improvements in task success over representative MPC and IL baselines. We also demonstrate our model's generalisation capabilities in challenging, unseen tasks featuring visual noise, cluttered scenes and unseen object geometries.
               </p>
 
-              <!-- <hr class="light my-3">
-              <p class="text-dark mb-3" style="font-size: calc(15px + 0.6vw);">Results</p>
+              <hr class="light my-3">
+              <p class="text-dark mb-3" style="font-size: calc(15px + 0.6vw);">Motivation</p>
+              <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">
+                  Learn <b>re-usable, versatile skill primitives</b> and apply them to new contexts instead of learning every task from scratch.
+              </p>
+              <div class="row mb-2">
+                <img style="width: 100%;" src="motivation.png" alt="Motivation"/>
+              </div>
 
-              <p class="text-dark" style="font-size: calc(12px + 0.48vw);">Reconstructing human faces</p>
-              <video autoplay loop muted playsinline width="800" style="max-width: 100%">
-                <source src="img/face.mp4" type="video/mp4" alt="Face results">
-              </video> -->
+              <hr class="light my-3">
+              <p class="text-dark mb-3" style="font-size: calc(15px + 0.6vw);">Idea</p>
+              <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">
+                  Use a single target image to <b>goal-condition</b> a visuomotor policy on a new task without finetuning the controller.
+              </p>
+              <div class="row mb-2">
+                <div class="col-md-6">
+                  <img style="width: 80%;" src="idea-initial_observation.png" alt="Initial observation"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">Initial observation</p>
+                </div>
+                <div class="col-md-6">
+                  <img style="width: 80%;" src="idea-target_image.png" alt="Target image"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">Target image</p>
+                </div>
+              </div>
+
+              <hr class="light my-3">
+              <p class="text-dark mb-3" style="font-size: calc(15px + 0.6vw);">Model</p>
+              <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">
+                  Leverage <b>dynamic images</b> to introduce an inductive bias about object shapes and encode motion dynamics.
+              </p>
+              <div class="row mb-2">
+                <center>
+                  <img style="width: 80%;" src="model.png" alt="Model"/>
+                </center>
+              </div>
+
+              <hr class="light my-3">
+              <p class="text-dark mb-3" style="font-size: calc(15px + 0.6vw);">Dataset</p>
+              <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">
+                  8h of scripted task demonstrations per skill in simulation
+              </p>
+              <div class="row mb-2">
+                <div class="col-md-3">
+                  <video controls autoplay loop muted playsinline width="300" style="max-width: 100%">
+                    <source src="dataset-pushing_01.mp4" type="video/mp4" alt="Dataset pushing 01">
+                  </video>
+                </div>
+                <div class="col-md-3">
+                  <video controls autoplay loop muted playsinline width="300" style="max-width: 100%">
+                    <source src="dataset-pushing_02.mp4" type="video/mp4" alt="Dataset pushing 02">
+                  </video>
+                </div>
+                <div class="col-md-3">
+                  <video controls autoplay loop muted playsinline width="300" style="max-width: 100%">
+                    <source src="dataset-pushing_03.mp4" type="video/mp4" alt="Dataset pushing 03">
+                  </video>
+                </div>
+                <div class="col-md-3">
+                  <video controls autoplay loop muted playsinline width="300" style="max-width: 100%">
+                    <source src="dataset-pushing_04.mp4" type="video/mp4" alt="Dataset pushing 04">
+                  </video>
+                </div>
+              </div>
+              <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">Pushing</p>
+              <hr class="light my-3">
+              <div class="row mb-2">
+                <div class="col-md-3">
+                  <video controls autoplay loop muted playsinline width="300" style="max-width: 100%">
+                    <source src="dataset-pick_and_place_01.mp4" type="video/mp4" alt="Dataset pick-and-place 01">
+                  </video>
+                </div>
+                <div class="col-md-3">
+                  <video controls autoplay loop muted playsinline width="300" style="max-width: 100%">
+                    <source src="dataset-pick_and_place_02.mp4" type="video/mp4" alt="Dataset pick-and-place 02">
+                  </video>
+                </div>
+                <div class="col-md-3">
+                  <video controls autoplay loop muted playsinline width="300" style="max-width: 100%">
+                    <source src="dataset-pick_and_place_03.mp4" type="video/mp4" alt="Dataset pick-and-place 03">
+                  </video>
+                </div>
+                <div class="col-md-3">
+                  <video controls autoplay loop muted playsinline width="300" style="max-width: 100%">
+                    <source src="dataset-pick_and_place_04.mp4" type="video/mp4" alt="Dataset pick-and-place 04">
+                  </video>
+                </div>
+              </div>
+              <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">Pick-and-place</p>
+              
+              <hr class="light my-3">
+              <p class="text-dark mb-3" style="font-size: calc(15px + 0.6vw);">Side-by-side comparison</p>
+              <div class="row mb-2">
+                <div class="col-md-3">
+                  <img style="width: 100%;" src="comparison-pushing-target_image.png" alt="Comparison pushing target image"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">Target image</p>
+                </div>
+                <div class="col-md-3">
+                  <video controls autoplay loop muted playsinline width="300" style="max-width: 100%">
+                    <source src="comparison-pushing-vfs.mp4" type="video/mp4" alt="Comparison pushing VFS">
+                  </video>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">VFS</p>
+                </div>
+                <div class="col-md-3">
+                  <video controls autoplay loop muted playsinline width="300" style="max-width: 100%">
+                    <source src="comparison-pushing-tecnets.mp4" type="video/mp4" alt="Comparison pushing TecNets">
+                  </video>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">TecNets</p>
+                </div>
+                <div class="col-md-3">
+                  <video controls autoplay loop muted playsinline width="300" style="max-width: 100%">
+                    <source src="comparison-pushing-geeco.mp4" type="video/mp4" alt="Comparison pushing GEECO">
+                  </video>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">GEECO (ours)</p>
+                </div>
+              </div>
+              <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">Pushing</p>
+              <div class="row mb-2">
+                <div class="col-md-3">
+                  <img style="width: 100%;" src="comparison-pick_and_place-target_image.png" alt="Comparison pick-and-place target image"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">Target image</p>
+                </div>
+                <div class="col-md-3">
+                  <video controls autoplay loop muted playsinline width="300" style="max-width: 100%">
+                    <source src="comparison-pick_and_place-vfs.mp4" type="video/mp4" alt="Comparison pick-and-place VFS">
+                  </video>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">VFS</p>
+                </div>
+                <div class="col-md-3">
+                  <video controls autoplay loop muted playsinline width="300" style="max-width: 100%">
+                    <source src="comparison-pick_and_place-tecnets.mp4" type="video/mp4" alt="Comparison pick-and-place TecNets">
+                  </video>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">TecNets</p>
+                </div>
+                <div class="col-md-3">
+                  <video controls autoplay loop muted playsinline width="300" style="max-width: 100%">
+                    <source src="comparison-pick_and_place-geeco.mp4" type="video/mp4" alt="Comparison pick-and-place GEECO">
+                  </video>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">GEECO (ours)</p>
+                </div>
+              </div>
+              <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">Pick-and-place</p>
+
+              <hr class="light my-3">
+              <p class="text-dark mb-3" style="font-size: calc(15px + 0.6vw);">Qualitative behaviour</p>
+              <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">
+                  GEECO can <b>regrasp</b> without encountering episodes with regrasps in the training data.
+              </p>
+              <div class="row mb-2">
+                <div class="col-md-3">
+                  <img style="width: 100%;" src="regrasping-target_image.png" alt="Regrasping target image"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">Target image</p>
+                </div>
+                <div class="col-md-3">
+                  <video controls autoplay loop muted playsinline width="300" style="max-width: 100%">
+                    <source src="regrasping-rgb.mp4" type="video/mp4" alt="Regrasping RGB stream">
+                  </video>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">RGB stream</p>
+                </div>
+                <div class="col-md-3">
+                  <video controls autoplay loop muted playsinline width="300" style="max-width: 100%">
+                    <source src="regrasping-diff.mp4" type="video/mp4" alt="Regrasping target difference">
+                  </video>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">Target difference</p>
+                </div>
+                <div class="col-md-3">
+                  <video controls autoplay loop muted playsinline width="300" style="max-width: 100%">
+                    <source src="regrasping-motion.mp4" type="video/mp4" alt="Regrasping motion buffer">
+                  </video>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">Motion buffer</p>
+                </div>
+              </div>
+              <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">
+                  GEECO struggles with depth and motion <b>ambiguities</b>.
+              </p>
+              <div class="row mb-2">
+                <div class="col-md-3">
+                  <img style="width: 100%;" src="ambiguity-target_image.png" alt="Ambiguity target image"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">Target image</p>
+                </div>
+                <div class="col-md-3">
+                  <video controls autoplay loop muted playsinline width="300" style="max-width: 100%">
+                    <source src="ambiguity-rgb.mp4" type="video/mp4" alt="Ambiguity RGB stream">
+                  </video>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">RGB stream</p>
+                </div>
+                <div class="col-md-3">
+                  <video controls autoplay loop muted playsinline width="300" style="max-width: 100%">
+                    <source src="ambiguity-diff.mp4" type="video/mp4" alt="Ambiguity target difference">
+                  </video>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">Target difference</p>
+                </div>
+                <div class="col-md-3">
+                  <video controls autoplay loop muted playsinline width="300" style="max-width: 100%">
+                    <source src="ambiguity-motion.mp4" type="video/mp4" alt="Ambiguity motion buffer">
+                  </video>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">Motion buffer</p>
+                </div>
+              </div>
+
+              <hr class="light my-3">
+              <p class="text-dark mb-3" style="font-size: calc(15px + 0.6vw);">Generalisation to new scenarios</p>
+              <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">
+                  GEECO performs a pick-and-place task under heavy <b>clutter</b>.
+              </p>
+              <div class="row mb-2">
+                <div class="col-md-3">
+                  <img style="width: 100%;" src="clutter-target_image.png" alt="Clutter target image"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">Target image</p>
+                </div>
+                <div class="col-md-3">
+                  <video controls autoplay loop muted playsinline width="300" style="max-width: 100%">
+                    <source src="clutter-rgb.mp4" type="video/mp4" alt="Clutter RGB stream">
+                  </video>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">RGB stream</p>
+                </div>
+                <div class="col-md-3">
+                  <video controls autoplay loop muted playsinline width="300" style="max-width: 100%">
+                    <source src="clutter-diff.mp4" type="video/mp4" alt="Clutter target difference">
+                  </video>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">Target difference</p>
+                </div>
+                <div class="col-md-3">
+                  <video controls autoplay loop muted playsinline width="300" style="max-width: 100%">
+                    <source src="clutter-motion.mp4" type="video/mp4" alt="Clutter motion buffer">
+                  </video>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">Motion buffer</p>
+                </div>
+              </div>
+              <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">
+                  GEECO is not distracted by <b>colour distortions</b> in the background.
+              </p>
+              <div class="row mb-2">
+                <div class="col-md-3">
+                  <img style="width: 100%;" src="prisma-target_image.png" alt="Prisma target image"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">Target image</p>
+                </div>
+                <div class="col-md-3">
+                  <video controls autoplay loop muted playsinline width="300" style="max-width: 100%">
+                    <source src="prisma-rgb.mp4" type="video/mp4" alt="Prisma RGB stream">
+                  </video>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">RGB stream</p>
+                </div>
+                <div class="col-md-3">
+                  <video controls autoplay loop muted playsinline width="300" style="max-width: 100%">
+                    <source src="prisma-diff.mp4" type="video/mp4" alt="Prisma target difference">
+                  </video>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">Target difference</p>
+                </div>
+                <div class="col-md-3">
+                  <video controls autoplay loop muted playsinline width="300" style="max-width: 100%">
+                    <source src="prisma-motion.mp4" type="video/mp4" alt="Prisma motion buffer">
+                  </video>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">Motion buffer</p>
+                </div>
+              </div>
+              <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">
+                  GEECO places a novel <b>nut</b> on a small <b>cone</b>.
+              </p>
+              <div class="row mb-2">
+                <div class="col-md-3">
+                  <img style="width: 100%;" src="nut-target_image.png" alt="Nut target image"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">Target image</p>
+                </div>
+                <div class="col-md-3">
+                  <video controls autoplay loop muted playsinline width="300" style="max-width: 100%">
+                    <source src="nut-rgb.mp4" type="video/mp4" alt="Nut RGB stream">
+                  </video>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">RGB stream</p>
+                </div>
+                <div class="col-md-3">
+                  <video controls autoplay loop muted playsinline width="300" style="max-width: 100%">
+                    <source src="nut-diff.mp4" type="video/mp4" alt="Nut target difference">
+                  </video>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">Target difference</p>
+                </div>
+                <div class="col-md-3">
+                  <video controls autoplay loop muted playsinline width="300" style="max-width: 100%">
+                    <source src="nut-motion.mp4" type="video/mp4" alt="Nut motion buffer">
+                  </video>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">Motion buffer</p>
+                </div>
+              </div>
+              <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">
+                  GEECO puts a small <b>ball</b> into a <b>cup</b>.
+              </p>
+              <div class="row mb-2">
+                <div class="col-md-3">
+                  <img style="width: 100%;" src="ball-target_image.png" alt="Ball target image"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">Target image</p>
+                </div>
+                <div class="col-md-3">
+                  <video controls autoplay loop muted playsinline width="300" style="max-width: 100%">
+                    <source src="ball-rgb.mp4" type="video/mp4" alt="Ball RGB stream">
+                  </video>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">RGB stream</p>
+                </div>
+                <div class="col-md-3">
+                  <video controls autoplay loop muted playsinline width="300" style="max-width: 100%">
+                    <source src="ball-diff.mp4" type="video/mp4" alt="Ball target difference">
+                  </video>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">Target difference</p>
+                </div>
+                <div class="col-md-3">
+                  <video controls autoplay loop muted playsinline width="300" style="max-width: 100%">
+                    <source src="ball-motion.mp4" type="video/mp4" alt="Ball motion buffer">
+                  </video>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">Motion buffer</p>
+                </div>
+              </div>
 
               <hr class="light my-3">
               <p class="text-dark mb-1" style="font-size: calc(15px + 0.6vw);">Citation</p>
