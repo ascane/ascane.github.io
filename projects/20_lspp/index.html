@@ -145,13 +145,191 @@
                   We present a novel approach to path planning for robotic manipulators, in which paths are produced via iterative optimisation in the latent space of a generative model of robot poses. Constraints are incorporated through the use of constraint satisfaction classifiers operating on the same space. Optimisation leverages gradients through our learned models that provide a simple way to combine goal reaching objectives with constraint satisfaction, even in the presence of otherwise non-differentiable constraints. Our models are trained in a task-agnostic manner on randomly sampled robot poses. In baseline comparisons against a number of widely used planners, we achieve commensurate performance in terms of task success, planning time and path length, performing successful path planning with obstacle avoidance on a real 7-DoF robot arm.
               </p>
 
-              <!-- <hr class="light my-3">
-              <p class="text-dark mb-3" style="font-size: calc(15px + 0.6vw);">Results</p>
+              <hr class="light my-3">
+              <p class="text-dark mb-3" style="font-size: calc(15px + 0.6vw);">Motivation</p>
+              <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);" align="justify">
+                  Path planning consists of finding a sequence of joint angles to move the robot from a start to a goal configuration.
+                  Traditional approaches suffer from a few issues.
+                  First, their planning time scales super-linearly as the complexity of the scene increases (as illustrated below).
+                  Optimisation-based planners are usually not flexible enough to handle constraints that cannot be directly expressed in joint space.
+                  Sampling-based planners, on the other hand, struggle to find solutions in scenarios where constraints render only a small volume of configuration space feasible.
+              </p>
+              <div class="row mb-2">
+                <div class="col-md-6">
+                  <img style="height: 200pt;" src="motivation-1obs.png" alt="Motivation 1obs"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">One obstacle</p>
+                </div>
+                <div class="col-md-6">
+                  <img style="height: 200pt;" src="motivation-5obs.png" alt="Motivation 5obs"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">Five obstacles</p>
+                </div>
+              </div>
 
-              <p class="text-dark" style="font-size: calc(12px + 0.48vw);">Reconstructing human faces</p>
-              <video autoplay loop muted playsinline width="800" style="max-width: 100%">
-                <source src="img/face.mp4" type="video/mp4" alt="Face results">
-              </video> -->
+              <hr class="light my-3">
+              <p class="text-dark mb-3" style="font-size: calc(15px + 0.6vw);">Overview</p>
+              <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);" align="justify">
+                  To address the previously mentioned issues, our idea is to first learn a latent representation of valid robot states.
+                  We then learn high-level performance predictors acting on this latent space as well as environment information to guide optimisation in latent space.
+                  Performing this optimisation iteratively produces a sequence of latent values that translates to a joint-space path satisfying the constraints.
+              </p>
+              <div class="row mb-2">
+                <center>
+                  <img style="width: 70%;" src="overview.png" alt="Overview"/>
+                </center>
+              </div>
+
+              <hr class="light my-3">
+              <p class="text-dark mb-3" style="font-size: calc(15px + 0.6vw);">Approach</p>
+              <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);" align="justify">
+                  We learn a latent representation of robot state through a variational autoencoder (VAE).
+                  Our model takes as input a joint configuration and its corresponding end-effector position, encodes them to a latent state z and then decodes it back.
+                  Given a target position, the end-effector position of the VAE output is used to compute the distance to the target.
+                  Paths for target reaching are produced through the iterative use of activation maximisation (AM).
+                  In other words, we iteratively backpropagate the gradient of the target loss to the latent space.
+                  A planned path is produced by decoding a sequence of latent values and taking the joint configuration of the VAE output.
+                  Note that our approach does not assume access to the forward kinematics relationship. Thus, we did not take joint configuration of the VAE output to compute the target loss.
+              </p>
+              <div class="row mb-2">
+                  <img style="width: 120pt; display: inline-block; margin: auto" src="z_update_b.svg" alt="z update"/>
+              </div>
+              <hr class="light my-3">
+              <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);" align="justify">
+                  Without modification, AM may often drive the latent values into parts of the latent space that have not been seen during training.
+                  Decoding these latent representations can lead to poor (joint configuration, end-effector position) pairs that are inconsistent with the desired kinematics.
+                  To encourage the optimisation to traverse regions in which the model is well defined, we introduce an additional loss term to the AM objective consisting of the likelihood of the current latent representation under its prior.<br><br>
+
+                  Finally, to avoid obstacles, a collision classifier, taking as input the concatenation of latent value z and obstacle information o, is trained using a binary cross entropy loss while the VAE weights remain frozen.
+                  When performing AM in the case of obstacle avoidance, we add an obstacle loss term from binary cross entropy loss to the AM loss.
+                  Our approach handles multiple obstacles by simply taking the sum of individual obstacle losses. 
+              </p>
+              <div class="row mb-2">
+                  <img style="width: 400pt; display: inline-block; margin: auto" src="L_AM_target_fixed.svg" alt="AM loss"/>
+              </div>
+
+              <hr class="light my-3">
+              <p class="text-dark mb-3" style="font-size: calc(15px + 0.6vw);">Experimental results</p>
+              <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);" align="justify">
+                  Qualitatively, in the case of no prior loss, one of the joints reaches its joint limit and the robot fails to reach the target, whereas in the case of adding the prior loss, the robot successfully reaches the target.
+              </p>
+              <div class="row mb-2">
+                <div class="col-md-6">
+                  <img style="width: 100%;" src="no-prior.gif" alt="No prior loss"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">No prior loss</p>
+                </div>
+                <div class="col-md-6">
+                  <img style="width: 100%;" src="prior.gif" alt="Prior loss"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">Prior loss</p>
+                </div>
+              </div>
+              <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);" align="justify">
+                  The obstacle loss is critical in avoiding obstacles as demonstrated below.
+                  Without any obstacle loss, the robot ignores the obstacle and bumps into it directly. The neon light shows the colliders, and it turns red when it is in collision.
+                  Adding the obstacle loss guides the robot to reach the target while avoiding the obstacle.
+              </p>
+              <div class="row mb-2">
+                <div class="col-md-6">
+                  <img style="width: 100%;" src="no-obs.gif" alt="No obstacle loss"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">No obstacle loss</p>
+                </div>
+                <div class="col-md-6">
+                  <img style="width: 100%;" src="obs.gif" alt="Obstacle loss"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">Obstacle loss</p>
+                </div>
+              </div>
+
+              <hr class="light my-3">
+              <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">
+                  Comparision against established path planning baselines from MoveIt
+              </p>
+              <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">One obstacle</p>
+              <div class="row mb-2">
+                <div class="col-md-3">
+                  <img style="width: 100%;" src="1obs/lspp.gif" alt="1obs LSPP"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">LSPP (ours)</p>
+                </div>
+                <div class="col-md-3">
+                  <img style="width: 100%;" src="1obs/rrtconnect.gif" alt="1obs RRTConnect"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">RRTConnect</p>
+                </div>
+                <div class="col-md-3">
+                  <img style="width: 100%;" src="1obs/lbkpiece.gif" alt="1obs LBKPIECE"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">LBKPIECE</p>
+                </div>
+                <div class="col-md-3">
+                  <img style="width: 100%;" src="1obs/rrtstar.gif" alt="1obs RRT*"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">RRT*</p>
+                </div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-md-3">
+                  <img style="width: 100%;" src="1obs/lazyprmstar.gif" alt="1obs LazyPRM*"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">LazyPRM*</p>
+                </div>
+                <div class="col-md-3">
+                  <img style="width: 100%;" src="1obs/fmt.gif" alt="1obs FMT*"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">FMT*</p>
+                </div>
+                <div class="col-md-3">
+                  <img style="width: 100%;" src="1obs/bitstar.gif" alt="1obs BIT*"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">BIT*</p>
+                </div>
+                <div class="col-md-3">
+                  <img style="width: 100%;" src="1obs/chomp.gif" alt="1obs CHOMP"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">CHOMP</p>
+                </div>
+              </div>
+
+              <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">Three obstacles</p>
+              <div class="row mb-2">
+                <div class="col-md-3">
+                  <img style="width: 100%;" src="3obs/lspp.gif" alt="3obs LSPP"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">LSPP (ours)</p>
+                </div>
+                <div class="col-md-3">
+                  <img style="width: 100%;" src="3obs/rrtconnect.gif" alt="3obs RRTConnect"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">RRTConnect</p>
+                </div>
+                <div class="col-md-3">
+                  <img style="width: 100%;" src="3obs/lbkpiece.gif" alt="3obs LBKPIECE"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">LBKPIECE</p>
+                </div>
+                <div class="col-md-3">
+                  <img style="width: 100%;" src="3obs/rrtstar.gif" alt="3obs RRT*"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">RRT*</p>
+                </div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-md-3">
+                  <img style="width: 100%;" src="3obs/lazyprmstar.gif" alt="3obs LazyPRM*"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">LazyPRM*</p>
+                </div>
+                <div class="col-md-3">
+                  <img style="width: 100%;" src="3obs/fmt.gif" alt="3obs FMT*"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">FMT*</p>
+                </div>
+                <div class="col-md-3">
+                  <img style="width: 100%;" src="3obs/bitstar.gif" alt="3obs BIT*"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">BIT*</p>
+                </div>
+                <div class="col-md-3">
+                  <img style="width: 100%;" src="3obs/chomp.gif" alt="3obs CHOMP"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">CHOMP</p>
+                </div>
+              </div>
+              
+              <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">
+                  Real-world experiment
+              </p>
+              <div class="row mb-2">
+                <div class="col-md-6">
+                  <img style="height: 200pt;" src="real_panda.gif" alt="Real panda"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">Real-world panda</p>
+                </div>
+                <div class="col-md-6">
+                  <img style="height: 200pt;" src="real_in_sim.gif" alt="Real in sim"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">Top-down view</p>
+                </div>
+              </div>
 
               <hr class="light my-3">
               <p class="text-dark mb-1" style="font-size: calc(15px + 0.6vw);">Citation</p>

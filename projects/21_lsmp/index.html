@@ -86,7 +86,6 @@
           <hr class="light my-4">
           <h2 class="section-heading text-dark mb-3" style="font-size: calc(14px + 1vw);"><b>Leveraging Scene Embeddings for Gradient-Based Motion Planning in Latent Space</b></h2>
           <h3 class="text-dark" style="font-size: calc(12px + 0.5vw);">Under review at: 2023 IEEE International Conference on Robotics and Automation (ICRA)</h3>
-          <!-- <h3 class="text-dark mb-4" style="font-size: calc(12px + 0.5vw);"><a href="http://cvpr2020.thecvf.com/node/817#best-paper-award" style="color:#e64a41"><b><i>Best Paper Award</i></b></a></h3> -->
           <div class="row mb-0">
             <!-- <div class="col-md-1"></div> -->
             <div class="col-auto col-md-1.5" style="margin: 0 auto;">
@@ -136,6 +135,135 @@
               <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);" align="justify">
                   Motion planning framed as optimisation in structured latent spaces has recently emerged as competitive with traditional methods in terms of planning success while significantly outperforming them in terms of computational speed. However, the real-world applicability of recent work in this domain remains limited by the need to express obstacle information directly in <i>state-space</i>, involving simple geometric primitives. In this work we address this challenge by leveraging learned scene embeddings together with a generative model of the robot manipulator to drive the optimisation process. In addition we introduce an approach for efficient collision checking which directly regularises the optimisation undertaken for planning. Using simulated as well as real-world experiments, we demonstrate that our approach, AMP-LS, is able to successfully plan in novel, complex scenes while outperforming competitive traditional baselines in terms of computation speed by an order of magnitude. We show that the resulting system is fast enough to enable closed-loop planning in real-world dynamic scenes.
               </p>
+
+              <hr class="light my-3">
+              <p class="text-dark mb-3" style="font-size: calc(15px + 0.6vw);">Overview</p>
+              <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);" align="justify">
+                  We introduce a method remarkably extending <a href="../20_lspp/index.html">Latent Space Path Planning (LSPP)</a> and name it <b>Activation Maximisation Planning in Latent Space (AMP-LS)</b>.
+                  Similar to LSPP, AMP-LS leverages a variational autoencoder (VAE) to learn a structured latent space to generate kinematically feasible joint trajectories.
+                  While a collision predictor in the prior work relies on state-based obstacle representations, our collision predictor leverages scene embeddings obtained from <a href="https://sites.google.com/nvidia.com/scenecollisionnet">SceneCollisionNet</a> to readily achieve zero-shot transfer to unseen environments.
+                  Further, we present an approach for explicit collision checking to directly regularise the optimisation to plan collision-free trajectories.
+              </p>
+              <div class="row mb-2">
+                <img style="width: 100%;" src="method.png" alt="Method"/>
+              </div>
+
+              <hr class="light my-3">
+              <p class="text-dark mb-3" style="font-size: calc(15px + 0.6vw);">Experimental results</p>
+              <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">
+                  Open-loop planning for reaching static targets in simulation
+              </p>
+              <div class="row mb-2">
+                <div class="col-md-3">
+                  <img style="width: 100%;" src="sim_static/lsmp_100_trajs_new_16.gif" alt="Traj16 AMP-LS"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">AMP-LS (ours)</p>
+                </div>
+                <div class="col-md-3">
+                  <img style="width: 100%;" src="sim_static/rrtconnect_100_traj_16_collider_90.gif" alt="Traj16 RRTConnect"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">RRTConnect — Collision</p>
+                </div>
+                <div class="col-md-3">
+                  <img style="width: 100%;" src="sim_static/lazyprmstar_100_traj_16.gif" alt="Traj16 LazyPRM*"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">LazyPRM*</p>
+                </div>
+                <div class="col-md-3">
+                  <img style="width: 100%;" src="sim_static/chomp_100_traj_16_fail.gif" alt="Traj16 LCHOMP"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">CHOMP — Fails to plan</p>
+                </div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-md-3">
+                  <img style="width: 100%;" src="sim_static/lsmp_100_trajs_new_23.gif" alt="Traj23 AMP-LS"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">AMP-LS (ours)</p>
+                </div>
+                <div class="col-md-3">
+                  <img style="width: 100%;" src="sim_static/rrtconnect_100_traj_23.gif" alt="Traj23 RRTConnect"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">RRTConnect</p>
+                </div>
+                <div class="col-md-3">
+                  <img style="width: 100%;" src="sim_static/lazyprmstar_100_traj_23_collider_90.gif" alt="Traj23 LazyPRM*"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">LazyPRM* — Collision</p>
+                </div>
+                <div class="col-md-3">
+                  <img style="width: 100%;" src="sim_static/chomp_100_traj_23_fail.gif" alt="Traj23 LCHOMP"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">CHOMP — Fails to plan</p>
+                </div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-md-3">
+                  <img style="width: 100%;" src="sim_static/lsmp_100_trajs_new_36.gif" alt="Traj36 AMP-LS"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">AMP-LS (ours)</p>
+                </div>
+                <div class="col-md-3">
+                  <img style="width: 100%;" src="sim_static/rrtconnect_100_traj_36.gif" alt="Traj36 RRTConnect"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">RRTConnect</p>
+                </div>
+                <div class="col-md-3">
+                  <img style="width: 100%;" src="sim_static/lazyprmstar_100_traj_36_collider_90.gif" alt="Traj36 LazyPRM*"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">LazyPRM* — Collision</p>
+                </div>
+                <div class="col-md-3">
+                  <img style="width: 100%;" src="sim_static/chomp_100_traj_36_fail.gif" alt="Traj36 LCHOMP"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">CHOMP — Fails to plan</p>
+                </div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-md-3">
+                  <img style="width: 100%;" src="sim_static/lsmp_100_trajs_new_70.gif" alt="Traj70 AMP-LS"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">AMP-LS (ours)</p>
+                </div>
+                <div class="col-md-3">
+                  <img style="width: 100%;" src="sim_static/rrtconnect_100_traj_70.gif" alt="Traj70 RRTConnect"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">RRTConnect</p>
+                </div>
+                <div class="col-md-3">
+                  <img style="width: 100%;" src="sim_static/lazyprmstar_100_traj_70_collider.gif" alt="Traj70 LazyPRM*"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">LazyPRM* — Collision</p>
+                </div>
+                <div class="col-md-3">
+                  <img style="width: 100%;" src="sim_static/chomp_100_traj_70_fail.gif" alt="Traj70 LCHOMP"/>
+                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">CHOMP — Fails to plan</p>
+                </div>
+              </div>
+
+              <hr class="light my-3">
+              <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">
+                  Open-loop planning in a complex scene in real
+              </p>
+              <div class="row mb-2">
+                <div class="col-md-6">
+                  <img style="width: 100%;" src="real_static/pregrasp1.gif" alt="Pregrasp1"/>
+                </div>
+                <div class="col-md-6">
+                  <img style="width: 100%;" src="real_static/pregrasp2.gif" alt="Pregrasp2"/>
+                </div>
+              </div>
+
+              <hr class="light my-3">
+              <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">
+                  Closed-loop planning for moving obstacles and target in simulation
+              </p>
+              <div class="row mb-2">
+                <div class="col-md-6">
+                  <img style="width: 100%;" src="sim_conveyor/conveyor_03.gif" alt="Sim conveyor 03"/>
+                </div>
+                <div class="col-md-6">
+                  <img style="width: 100%;" src="sim_conveyor/conveyor_09.gif" alt="Sim conveyor 09"/>
+                </div>
+              </div>
+
+              <hr class="light my-3">
+              <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">
+                  Closed-loop planning for moving obstacles and target in real
+              </p>
+              <div class="row mb-2">
+                <div class="col-md-6">
+                  <img style="width: 100%;" src="real_conveyor/track.gif" alt="Real conveyor track"/>
+                </div>
+                <div class="col-md-6">
+                  <img style="width: 100%;" src="real_conveyor/same_pos.gif" alt="Real conveyor same pos"/>
+                </div>
+              </div>
 
               <hr class="light my-3">
               <p class="text-dark mb-1" style="font-size: calc(15px + 0.6vw);">Citation</p>
