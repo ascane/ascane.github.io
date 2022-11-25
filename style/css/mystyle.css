@@ -1,0 +1,14 @@
+.thin-row>div {
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.thin-row {
+	margin-left: -5px;
+	margin-right: -5px;
+}
+
+.no-margin {
+	margin-top: 0;
+    margin-bottom: 0;
+}

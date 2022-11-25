@@ -37,6 +37,7 @@
     <link href="../../style/css/creative.min.css" rel="stylesheet">
     <link href="../../style/css/footer.css" rel="stylesheet">
     <link href="../../style/css/academicons.css" rel="stylesheet">
+    <link href="../../style/css/mystyle.css" rel="stylesheet">
 
     <link rel="shortcut icon" type="image/jpeg" href="../../images/profile.png"/>
 
@@ -84,37 +85,37 @@
       <div class="container">
         <center>
           <hr class="light my-4">
-          <h2 class="section-heading text-dark mb-3" style="font-size: calc(14px + 1vw);"><b>Reaching Through Latent Space: From Joint Statistics to Path Planning in Manipulation</b></h2>
+          <h2 class="section-heading text-dark mb-3" style="font-size: calc(14px + 1vw);"><b>Reaching Through Latent Space:<br>From Joint Statistics to Path Planning in Manipulation</b></h2>
           <h3 class="text-dark" style="font-size: calc(12px + 0.5vw);">2022 IEEE Robotics and Automation Letters (RA-L)</h3>
           <h3 class="text-dark" style="font-size: calc(12px + 0.5vw);">2022 IEEE International Conference on Robotics and Automation (ICRA)</h3>
           <!-- <h3 class="text-dark mb-4" style="font-size: calc(12px + 0.5vw);"><a href="http://cvpr2020.thecvf.com/node/817#best-paper-award" style="color:#e64a41"><b><i>Best Paper Award</i></b></a></h3> -->
           <div class="row mb-2">
             <!-- <div class="col-md-1"></div> -->
-            <div class="col-auto col-md-1.5" style="margin: 0 auto;">
+            <div class="col-auto" style="margin: 0 auto;">
               <p class="text-dark mb-1"><a class="text-dark" href="https://ascane.github.io/" style="font-size: calc(10px + 0.4vw);">Chia-Man Hung</a></p>
               <p class="text-dark" style="font-size: calc(10px + 0.4vw);">Oxford A2I, DRS</p>
             </div>
-            <div class="col-auto col-md-1.5" style="margin: 0 auto;">
+            <div class="col-auto" style="margin: 0 auto;">
               <p class="text-dark mb-1"><a class="text-dark" href="https://ori.ox.ac.uk/people/shaohong-zhong/" style="font-size: calc(10px + 0.4vw);">Shaohong Zhong</a></p>
               <p class="text-dark" style="font-size: calc(10px + 0.4vw);">Oxford A2I</p>
             </div>
-            <div class="col-auto col-md-1.5" style="margin: 0 auto;">
+            <div class="col-auto" style="margin: 0 auto;">
               <p class="text-dark mb-1"><a class="text-dark" href="https://ori.ox.ac.uk/people/walter-goodwin/" style="font-size: calc(10px + 0.4vw);">Walter Goodwin</a></p>
               <p class="text-dark" style="font-size: calc(10px + 0.4vw);">Oxford A2I, DRS</p>
             </div>
-            <div class="col-auto col-md-1.5" style="margin: 0 auto;">
+            <div class="col-auto" style="margin: 0 auto;">
               <p class="text-dark mb-1"><a class="text-dark" href="https://ori.ox.ac.uk/people/oiwi-parker-jones/" style="font-size: calc(10px + 0.4vw);">Oiwi Parker Jones</a></p>
               <p class="text-dark" style="font-size: calc(10px + 0.4vw);">Oxford A2I</p>
             </div>
-            <div class="col-auto col-md-1.5" style="margin: 0 auto;">
+            <div class="col-auto" style="margin: 0 auto;">
               <p class="text-dark mb-1"><a class="text-dark" href="https://ori.ox.ac.uk/people/martin-engelcke/" style="font-size: calc(10px + 0.4vw);">Martin Engelcke</a></p>
               <p class="text-dark" style="font-size: calc(10px + 0.4vw);">Oxford A2I</p>
             </div>
-            <div class="col-auto col-md-1.5" style="margin: 0 auto;">
+            <div class="col-auto" style="margin: 0 auto;">
               <p class="text-dark mb-1"><a class="text-dark" href="https://ihavoutis.github.io/" style="font-size: calc(10px + 0.4vw);">Ioannis Havoutis</a></p>
               <p class="text-dark" style="font-size: calc(10px + 0.4vw);">Oxford DRS</p>
             </div>
-            <div class="col-auto col-md-1.5" style="margin: 0 auto;">
+            <div class="col-auto" style="margin: 0 auto;">
               <p class="text-dark mb-1"><a class="text-dark" href="https://ori.ox.ac.uk/ori-people/ingmar-posner/" style="font-size: calc(10px + 0.4vw);">Ingmar Posner</a></p>
               <p class="text-dark" style="font-size: calc(10px + 0.4vw);">Oxford A2I</p>
             </div>
@@ -156,11 +157,11 @@
               </p>
               <div class="row mb-2">
                 <div class="col-md-6">
-                  <img style="height: 200pt;" src="motivation-1obs.png" alt="Motivation 1obs"/>
+                  <img style="height: 270px;" src="motivation-1obs.png" alt="Motivation 1obs"/>
                   <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">One obstacle</p>
                 </div>
                 <div class="col-md-6">
-                  <img style="height: 200pt;" src="motivation-5obs.png" alt="Motivation 5obs"/>
+                  <img style="height: 270px;" src="motivation-5obs.png" alt="Motivation 5obs"/>
                   <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">Five obstacles</p>
                 </div>
               </div>
@@ -168,7 +169,8 @@
               <hr class="light my-3">
               <p class="text-dark mb-3" style="font-size: calc(15px + 0.6vw);">Overview</p>
               <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);" align="justify">
-                  To address the previously mentioned issues, our idea is to first learn a latent representation of valid robot states.
+                  To address the previously mentioned issues, we introduce <b>Latent Space Path Planning (LSPP)</b>.
+                  Our idea is to first learn a latent representation of valid robot states.
                   We then learn high-level performance predictors acting on this latent space as well as environment information to guide optimisation in latent space.
                   Performing this optimisation iteratively produces a sequence of latent values that translates to a joint-space path satisfying the constraints.
               </p>
@@ -190,7 +192,7 @@
                   Note that our approach does not assume access to the forward kinematics relationship. Thus, we did not take joint configuration of the VAE output to compute the target loss.
               </p>
               <div class="row mb-2">
-                  <img style="width: 120pt; display: inline-block; margin: auto" src="z_update_b.svg" alt="z update"/>
+                  <img style="width: 160px; display: inline-block; margin: auto" src="z_update_b.svg" alt="z update"/>
               </div>
               <hr class="light my-3">
               <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);" align="justify">
@@ -203,7 +205,7 @@
                   Our approach handles multiple obstacles by simply taking the sum of individual obstacle losses. 
               </p>
               <div class="row mb-2">
-                  <img style="width: 400pt; display: inline-block; margin: auto" src="L_AM_target_fixed.svg" alt="AM loss"/>
+                  <img style="width: 530px; display: inline-block; margin: auto" src="L_AM_target_fixed.svg" alt="AM loss"/>
               </div>
 
               <hr class="light my-3">
@@ -242,25 +244,25 @@
                   Comparision against established path planning baselines from MoveIt
               </p>
               <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">One obstacle</p>
-              <div class="row mb-2">
+              <div class="row mb-2 thin-row">
                 <div class="col-md-3">
                   <img style="width: 100%;" src="1obs/lspp.gif" alt="1obs LSPP"/>
-                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">LSPP (ours)</p>
+                  <p class="text-dark no-margin" style="font-size: calc(10px + 0.4vw);">LSPP (ours)</p>
                 </div>
                 <div class="col-md-3">
                   <img style="width: 100%;" src="1obs/rrtconnect.gif" alt="1obs RRTConnect"/>
-                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">RRTConnect</p>
+                  <p class="text-dark no-margin" style="font-size: calc(10px + 0.4vw);">RRTConnect</p>
                 </div>
                 <div class="col-md-3">
                   <img style="width: 100%;" src="1obs/lbkpiece.gif" alt="1obs LBKPIECE"/>
-                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">LBKPIECE</p>
+                  <p class="text-dark no-margin" style="font-size: calc(10px + 0.4vw);">LBKPIECE</p>
                 </div>
                 <div class="col-md-3">
                   <img style="width: 100%;" src="1obs/rrtstar.gif" alt="1obs RRT*"/>
-                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">RRT*</p>
+                  <p class="text-dark no-margin" style="font-size: calc(10px + 0.4vw);">RRT*</p>
                 </div>
               </div>
-              <div class="row mb-2">
+              <div class="row mb-2 thin-row">
                 <div class="col-md-3">
                   <img style="width: 100%;" src="1obs/lazyprmstar.gif" alt="1obs LazyPRM*"/>
                   <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">LazyPRM*</p>
@@ -280,25 +282,25 @@
               </div>
 
               <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">Three obstacles</p>
-              <div class="row mb-2">
+              <div class="row mb-2 thin-row">
                 <div class="col-md-3">
                   <img style="width: 100%;" src="3obs/lspp.gif" alt="3obs LSPP"/>
-                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">LSPP (ours)</p>
+                  <p class="text-dark no-margin" style="font-size: calc(10px + 0.4vw);">LSPP (ours)</p>
                 </div>
                 <div class="col-md-3">
                   <img style="width: 100%;" src="3obs/rrtconnect.gif" alt="3obs RRTConnect"/>
-                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">RRTConnect</p>
+                  <p class="text-dark no-margin" style="font-size: calc(10px + 0.4vw);">RRTConnect</p>
                 </div>
                 <div class="col-md-3">
                   <img style="width: 100%;" src="3obs/lbkpiece.gif" alt="3obs LBKPIECE"/>
-                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">LBKPIECE</p>
+                  <p class="text-dark no-margin" style="font-size: calc(10px + 0.4vw);">LBKPIECE</p>
                 </div>
                 <div class="col-md-3">
                   <img style="width: 100%;" src="3obs/rrtstar.gif" alt="3obs RRT*"/>
-                  <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">RRT*</p>
+                  <p class="text-dark no-margin" style="font-size: calc(10px + 0.4vw);">RRT*</p>
                 </div>
               </div>
-              <div class="row mb-2">
+              <div class="row mb-2 thin-row">
                 <div class="col-md-3">
                   <img style="width: 100%;" src="3obs/lazyprmstar.gif" alt="3obs LazyPRM*"/>
                   <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">LazyPRM*</p>
@@ -322,11 +324,11 @@
               </p>
               <div class="row mb-2">
                 <div class="col-md-6">
-                  <img style="height: 200pt;" src="real_panda.gif" alt="Real panda"/>
+                  <img style="height: 270px;" src="real_panda.gif" alt="Real panda"/>
                   <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">Real-world panda</p>
                 </div>
                 <div class="col-md-6">
-                  <img style="height: 200pt;" src="real_in_sim.gif" alt="Real in sim"/>
+                  <img style="height: 270px;" src="real_in_sim.gif" alt="Real in sim"/>
                   <p class="text-dark mb-4" style="font-size: calc(10px + 0.4vw);">Top-down view</p>
                 </div>
               </div>
